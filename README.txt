@@ -15,10 +15,10 @@ simple ones.  This library attempts to fill that gap, as generic
 functions are an `excellent alternative to the Visitor pattern`_, as
 well as being a great substitute for most common uses of adaptation.
 
-This library tries to be the as simple an implementation of generic
-functions as possible, and therefore eschews the use of multiple
-dispatch, and avoids using speedup techniques such as C dispatching or
-code generation.  But it has absolutely no dependencies, other than
+This library tries to be the simplest possible implementation of generic
+functions, and it therefore eschews the use of multiple or predicate
+dispatch, as well as avoiding speedup techniques such as C dispatching
+or code generation.  But it has absolutely no dependencies, other than
 Python 2.4, and the implementation is just a single Python module of
 less than 100 lines.
 
