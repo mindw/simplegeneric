@@ -22,7 +22,11 @@ code generation.  But it has absolutely no dependencies, other than
 Python 2.4, and the implementation is just a single Python module of
 less than 100 lines.
 
-Usage is straightforward::
+
+Usage
+-----
+
+Defining and using a generic function is straightforward::
 
     >>> from simplegeneric import generic
     >>> @generic
@@ -59,6 +63,10 @@ Usage is straightforward::
     >>> move(27.0, 56.2)
     what you say?!
 
+
+Inheritance and Allowed Types
+-----------------------------
+
 Defining multiple methods for the same type or object is an error::
 
     >>> @move.when_type(str)
@@ -73,6 +81,15 @@ Defining multiple methods for the same type or object is an error::
     Traceback (most recent call last):
       ...
     TypeError: <function move...> already has method for object <object ...>
+
+And the ``when_type()`` decorator only accepts classes or types::
+
+    >>> @move.when_type(23)
+    ... def move_23(item, target):
+    ...     print "You have no chance to survive!"
+    Traceback (most recent call last):
+      ...
+    TypeError: 23 is not a type or class
 
 Methods defined for supertypes are inherited following MRO order::
 
@@ -99,14 +116,9 @@ is slower than for new-style instances)::
     >>> move(Y(), "dance")
     Someone set us up the dance!!!
 
-And the ``when_type()`` decorator only accepts classes or types::
 
-    >>> @move.when_type(23)
-    ... def move_23(item, target):
-    ...     print "You have no chance to survive!"
-    Traceback (most recent call last):
-      ...
-    TypeError: 23 is not a type or class
+Defaults and Docs
+-----------------
 
 You can obtain a function's default implementation using its ``default``
 attribute::
@@ -154,4 +166,6 @@ however, which is somewhat of a pain.  (Alternately I could use the
 to use than string-based code generation, but that would introduce more
 dependencies, and I'm trying to keep this simple so I can just
 toss it into Chandler without a big footprint increase.)
+
+.. _excellent alternative to the Visitor pattern: http://peak.telecommunity.com/DevCenter/VisitorRevisited
 

@@ -26,7 +26,8 @@ def get_description():
 setup(
     name=PACKAGE_NAME,
     version=PACKAGE_VERSION,
-    description="Simple generic functions (ala len(), pickle.dump(), etc.)",
+    description= "Simple generic functions (similar to Python's own len(), "
+        "pickle.dump(), etc.)",
     long_description = get_description(),
     url = "http://cheeseshop.python.org/pypi/simplegeneric",
     author="Phillip J. Eby",
