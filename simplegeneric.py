@@ -21,16 +21,16 @@ def generic(func):
     _gbt = _by_type.get
 
     def when_type(t):
+        """Decorator to add a method that will be called for type `t`"""
         if not isinstance(t, classtypes):
             raise TypeError(
                 "%r is not a type or class" % (t,)
             )
         def decorate(f):
-            if t in _by_type:
+            if _by_type.setdefault(t,f) is not f:
                 raise TypeError(
                     "%r already has method for type %r" % (func, t)
                 )
-            _by_type[t] = f
             return f
         return decorate
 
@@ -43,12 +43,12 @@ def generic(func):
     _gbo = _by_object.get
 
     def when_object(o):
+        """Decorator to add a method that will be called for object `o`"""
         def decorate(f):
-            if id(o) in _by_object:
+            if _by_object.setdefault(id(o), (o,f))[1] is not f:
                 raise TypeError(
                     "%r already has method for object %r" % (func, o)
                 )
-            _by_object[id(o)] = o, f
             return f
         return decorate
 
@@ -66,16 +66,16 @@ def generic(func):
             return f[1](*args, **kw)
 
     dispatch.__name__       = func.__name__
-    dispatch.__dict__       = func.__dict__
+    dispatch.__dict__       = func.__dict__.copy()
     dispatch.__doc__        = func.__doc__
     dispatch.__module__     = func.__module__
 
     dispatch.when_type = when_type
     dispatch.when_object = when_object
     dispatch.default = func
-
+    dispatch.has_object = lambda o: id(o) in _by_object
+    dispatch.has_type   = lambda t: t in _by_type
     return dispatch
-
 
 
 

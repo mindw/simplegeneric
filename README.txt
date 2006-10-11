@@ -2,6 +2,8 @@
 Trivial Generic Functions
 =========================
 
+(NEW in 0.6: `Inspection and Extension`_, and thread-safe method registration.)
+
 The ``simplegeneric`` module lets you define simple single-dispatch
 generic functions, akin to Python's built-in generic functions like
 ``len()``, ``iter()`` and so on.  However, instead of using
@@ -143,6 +145,62 @@ the prototype/default function::
     move(*args, **kw)
         Default implementation goes here
     ...
+
+
+Inspection and Extension
+------------------------
+
+You can find out if a generic function has a method for a type or object using
+the ``has_object()`` and ``has_type()`` methods::
+
+    >>> move.has_object(zig)
+    True
+    >>> move.has_object(42)
+    False
+
+    >>> move.has_type(X)
+    True
+    >>> move.has_type(float)
+    False
+
+Note that ``has_type()`` only queries whether there is a method registered for
+the *exact* type, not subtypes or supertypes::
+
+    >>> class Z(X): pass
+    >>> move.has_type(Z)
+    False
+
+You can create a generic function that "inherits" from an existing generic
+function by calling ``generic()`` on the existing function::
+
+    >>> move2 = generic(move)
+    >>> move(2101, "war")
+    In AD 2101, war was beginning.
+
+Any methods added to the new generic function override *all* methods in the
+"base" function::
+
+    >>> @move2.when_type(X)
+    ... def move2_X(item, target):
+    ...     print "You have no chance to survive make your %s!" % (target,)
+
+    >>> move2(X(), "time")
+    You have no chance to survive make your time!
+
+    >>> move2(Y(), "time")
+    You have no chance to survive make your time!
+
+Notice that even though ``move()`` has a method for type ``Y``, the method
+defined for ``X`` in ``move2()`` takes precedence.  This is because the
+``move`` function is used as the ``default`` method of ``move2``, and ``move2``
+has no method for type ``Y``::
+
+    >>> move2.default is move
+    True
+    >>> move.has_type(Y)
+    True
+    >>> move2.has_type(Y)
+    False
 
 
 Limitations
