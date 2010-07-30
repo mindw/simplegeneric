@@ -20,21 +20,21 @@ def generic(func):
     _by_type = {object: func, InstanceType: _by_class}
     _gbt = _by_type.get
 
-    def when_type(t):
-        """Decorator to add a method that will be called for type `t`"""
-        if not isinstance(t, classtypes):
-            raise TypeError(
-                "%r is not a type or class" % (t,)
-            )
-        def decorate(f):
-            if _by_type.setdefault(t,f) is not f:
+    def when_type(*types):
+        """Decorator to add a method that will be called for the given types"""
+        for t in types:
+            if not isinstance(t, classtypes):
                 raise TypeError(
-                    "%r already has method for type %r" % (func, t)
+                    "%r is not a type or class" % (t,)
                 )
+        def decorate(f):
+            for t in types:
+                if _by_type.setdefault(t,f) is not f:
+                    raise TypeError(
+                        "%r already has method for type %r" % (func, t)
+                    )
             return f
         return decorate
-
-
 
 
 
@@ -42,13 +42,14 @@ def generic(func):
     _by_object = {}
     _gbo = _by_object.get
 
-    def when_object(o):
-        """Decorator to add a method that will be called for object `o`"""
+    def when_object(*obs):
+        """Decorator to add a method to be called for the given object(s)"""
         def decorate(f):
-            if _by_object.setdefault(id(o), (o,f))[1] is not f:
-                raise TypeError(
-                    "%r already has method for object %r" % (func, o)
-                )
+            for o in obs:
+                if _by_object.setdefault(id(o), (o,f))[1] is not f:
+                    raise TypeError(
+                        "%r already has method for object %r" % (func, o)
+                    )
             return f
         return decorate
 
@@ -76,7 +77,6 @@ def generic(func):
     dispatch.has_object = lambda o: id(o) in _by_object
     dispatch.has_type   = lambda t: t in _by_type
     return dispatch
-
 
 
 

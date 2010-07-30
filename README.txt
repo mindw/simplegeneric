@@ -2,6 +2,8 @@
 Trivial Generic Functions
 =========================
 
+(NEW in 0.7: `Multiple Types or Objects`_)
+
 (NEW in 0.6: `Inspection and Extension`_, and thread-safe method registration.)
 
 The ``simplegeneric`` module lets you define simple single-dispatch
@@ -117,6 +119,34 @@ is slower than for new-style instances)::
 
     >>> move(Y(), "dance")
     Someone set us up the dance!!!
+
+
+Multiple Types or Objects
+-------------------------
+
+As a convenience, you can now pass more than one type or object to the
+registration methods::
+
+>>> @generic
+... def isbuiltin(ob):
+...     return False
+>>> @isbuiltin.when_type(int, str, float, complex, type)
+... @isbuiltin.when_object(None, Ellipsis)
+... def yes(ob):
+...     return True
+
+>>> isbuiltin(1)
+True
+>>> isbuiltin(object)
+True
+>>> isbuiltin(object())
+False
+>>> isbuiltin(X)
+False
+>>> isbuiltin(None)
+True
+>>> isbuiltin(Ellipsis)
+True
 
 
 Defaults and Docs

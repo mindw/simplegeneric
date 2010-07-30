@@ -7,7 +7,7 @@ from setuptools import setup
 
 # Metadata
 PACKAGE_NAME = "simplegeneric"
-PACKAGE_VERSION = "0.6"
+PACKAGE_VERSION = "0.7"
 
 def get_description():
     # Get our long description from the documentation
@@ -32,7 +32,7 @@ setup(
     url = "http://cheeseshop.python.org/pypi/simplegeneric",
     author="Phillip J. Eby",
     author_email="peak@eby-sarna.com",
-    license="PSF or ZPL",
+    license="http://www.apache.org/licenses/LICENSE-2.0",
     test_suite = 'simplegeneric.test_suite',
     py_modules = ['simplegeneric'],
 )
