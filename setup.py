@@ -32,7 +32,7 @@ setup(
     url = "http://cheeseshop.python.org/pypi/simplegeneric",
     author="Phillip J. Eby",
     author_email="peak@eby-sarna.com",
-    license="http://www.apache.org/licenses/LICENSE-2.0",
+    license="ZPL 2.1",
     test_suite = 'simplegeneric.test_suite',
     py_modules = ['simplegeneric'],
 )
