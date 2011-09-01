@@ -1,7 +1,10 @@
 __all__ = ["generic"]
-
-from types import ClassType, InstanceType
-classtypes = type, ClassType
+try:
+    from types import ClassType, InstanceType
+    classtypes = type, ClassType
+except ImportError:
+    classtypes = type
+    InstanceType = None
 
 def generic(func):
     """Create a simple generic function"""
@@ -35,9 +38,6 @@ def generic(func):
                     )
             return f
         return decorate
-
-
-
 
     _by_object = {}
     _gbo = _by_object.get
@@ -87,10 +87,10 @@ def test_suite():
         optionflags=doctest.ELLIPSIS|doctest.REPORT_ONLY_FIRST_FAILURE,
     )
 
-
-
-
-
+if __name__=='__main__':
+    import unittest
+    r = unittest.TextTestRunner()
+    r.run(test_suite())
 
 
 

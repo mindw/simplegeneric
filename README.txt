@@ -36,22 +36,22 @@ Defining and using a generic function is straightforward::
     >>> @generic
     ... def move(item, target):
     ...     """Default implementation goes here"""
-    ...     print "what you say?!"
+    ...     print("what you say?!")
 
     >>> @move.when_type(int)
     ... def move_int(item, target):
-    ...     print "In AD %d, %s was beginning." % (item, target)
+    ...     print("In AD %d, %s was beginning." % (item, target))
 
     >>> @move.when_type(str)
     ... def move_str(item, target):
-    ...     print "How are you %s!!" % item
-    ...     print "All your %s are belong to us." % (target,)
+    ...     print("How are you %s!!" % item)
+    ...     print("All your %s are belong to us." % (target,))
 
     >>> zig = object()
     >>> @move.when_object(zig)
     ... def move_zig(item, target):
-    ...     print "You know what you %s." % (target,)
-    ...     print "For great justice!"
+    ...     print("You know what you %s." % (target,))
+    ...     print("For great justice!")
 
     >>> move(2101, "war")
     In AD 2101, war was beginning.
@@ -78,7 +78,7 @@ Defining multiple methods for the same type or object is an error::
     ...     pass
     Traceback (most recent call last):
     ...
-    TypeError: <function move...> already has method for type <type 'str'>
+    TypeError: <function move...> already has method for type <...'str'>
 
     >>> @move.when_object(zig)
     ... def this_is_wrong(item, target): pass
@@ -90,7 +90,7 @@ And the ``when_type()`` decorator only accepts classes or types::
 
     >>> @move.when_type(23)
     ... def move_23(item, target):
-    ...     print "You have no chance to survive!"
+    ...     print("You have no chance to survive!")
     Traceback (most recent call last):
       ...
     TypeError: 23 is not a type or class
@@ -112,7 +112,7 @@ is slower than for new-style instances)::
 
     >>> @move.when_type(X)
     ... def move_x(item, target):
-    ...     print "Someone set us up the %s!!!" % (target,)
+    ...     print("Someone set us up the %s!!!" % (target,))
 
     >>> move(X(), "bomb")
     Someone set us up the bomb!!!
@@ -127,26 +127,26 @@ Multiple Types or Objects
 As a convenience, you can now pass more than one type or object to the
 registration methods::
 
->>> @generic
-... def isbuiltin(ob):
-...     return False
->>> @isbuiltin.when_type(int, str, float, complex, type)
-... @isbuiltin.when_object(None, Ellipsis)
-... def yes(ob):
-...     return True
-
->>> isbuiltin(1)
-True
->>> isbuiltin(object)
-True
->>> isbuiltin(object())
-False
->>> isbuiltin(X)
-False
->>> isbuiltin(None)
-True
->>> isbuiltin(Ellipsis)
-True
+    >>> @generic
+    ... def isbuiltin(ob):
+    ...     return False
+    >>> @isbuiltin.when_type(int, str, float, complex, type)
+    ... @isbuiltin.when_object(None, Ellipsis)
+    ... def yes(ob):
+    ...     return True
+    
+    >>> isbuiltin(1)
+    True
+    >>> isbuiltin(object)
+    True
+    >>> isbuiltin(object())
+    False
+    >>> isbuiltin(X())
+    False
+    >>> isbuiltin(None)
+    True
+    >>> isbuiltin(Ellipsis)
+    True
 
 
 Defaults and Docs
@@ -157,7 +157,7 @@ attribute::
 
     >>> @move.when_type(Y)
     ... def move_y(item, target):
-    ...     print "Someone set us up the %s!!!" % (target,)
+    ...     print("Someone set us up the %s!!!" % (target,))
     ...     move.default(item, target)
 
     >>> move(Y(), "dance")
@@ -212,7 +212,7 @@ Any methods added to the new generic function override *all* methods in the
 
     >>> @move2.when_type(X)
     ... def move2_X(item, target):
-    ...     print "You have no chance to survive make your %s!" % (target,)
+    ...     print("You have no chance to survive make your %s!" % (target,))
 
     >>> move2(X(), "time")
     You have no chance to survive make your time!
