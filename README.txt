@@ -2,9 +2,9 @@
 Trivial Generic Functions
 =========================
 
-(NEW in 0.7: `Multiple Types or Objects`_)
-
-(NEW in 0.6: `Inspection and Extension`_, and thread-safe method registration.)
+* New in 0.8: Source and tests are compatible with Python 3 (w/o ``setup.py``)
+* New in 0.7: `Multiple Types or Objects`_
+* New in 0.6: `Inspection and Extension`_, and thread-safe method registration
 
 The ``simplegeneric`` module lets you define simple single-dispatch
 generic functions, akin to Python's built-in generic functions like

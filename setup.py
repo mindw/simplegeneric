@@ -7,7 +7,7 @@ from setuptools import setup
 
 # Metadata
 PACKAGE_NAME = "simplegeneric"
-PACKAGE_VERSION = "0.7"
+PACKAGE_VERSION = "0.8"
 
 def get_description():
     # Get our long description from the documentation
