@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """Distutils setup file"""
-
-import ez_setup
-ez_setup.use_setuptools()
-from setuptools import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 # Metadata
 PACKAGE_NAME = "simplegeneric"
@@ -11,7 +11,7 @@ PACKAGE_VERSION = "0.8"
 
 def get_description():
     # Get our long description from the documentation
-    f = file('README.txt')
+    f = open('README.txt')
     lines = []
     for line in f:
         if not line.strip():
