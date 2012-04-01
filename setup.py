@@ -7,7 +7,7 @@ except ImportError:
 
 # Metadata
 PACKAGE_NAME = "simplegeneric"
-PACKAGE_VERSION = "0.8"
+PACKAGE_VERSION = "0.8.1"
 
 def get_description():
     # Get our long description from the documentation
@@ -35,5 +35,7 @@ setup(
     license="ZPL 2.1",
     test_suite = 'simplegeneric.test_suite',
     py_modules = ['simplegeneric'],
+    classifiers = [
+        line.strip() for line in open('classifiers.txt') if line.strip()
+    ],
 )
-

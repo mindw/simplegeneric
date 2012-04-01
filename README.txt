@@ -3,7 +3,11 @@ Trivial Generic Functions
 =========================
 
 * New in 0.8: Source and tests are compatible with Python 3 (w/o ``setup.py``)
+
+  * 0.8.1: setup.py is now compatible with Python 3 as well
+
 * New in 0.7: `Multiple Types or Objects`_
+
 * New in 0.6: `Inspection and Extension`_, and thread-safe method registration
 
 The ``simplegeneric`` module lets you define simple single-dispatch
